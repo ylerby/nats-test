@@ -1,0 +1,21 @@
+version: '3'
+services:
+  db:
+    image: postgres:14.7-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: NatsDB
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./infrastructure/db/create_db.sql:/docker-entrypoint-initdb.d/create_db.sql
+      - db-data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  db-data:
+
+networks:
+  go_app:
+    driver: bridge
