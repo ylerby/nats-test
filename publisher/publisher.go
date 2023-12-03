@@ -80,7 +80,7 @@ func (n *Nats) PublicMessage() {
 
 	//todo: намокать тестовых значений
 
-	/* model := ModelJson{
+	model := ModelJson{
 		OrderUid:    "12345",
 		TrackNumber: "T123",
 		Entry:       "Some entry",
@@ -173,13 +173,13 @@ func (n *Nats) PublicMessage() {
 
 	model.Items = items
 	data, err := json.Marshal(model)
-	err = sc.Publish("nats-channel", data) */
+	err = sc.Publish("nats-channel", data)
 
-	model2 := ModelJson{
-		OrderUid:    "31",
-		TrackNumber: "iuuuu",
-		Entry:       "bbeqf",
-		Locale:      "efq",
+	/* model3 := ModelJson{
+		OrderUid:    "1",
+		TrackNumber: "trck",
+		Entry:       "entry",
+		Locale:      "loc",
 		// Заполнение структуры для Delivery
 		Delivery: struct {
 			Name    string `json:"name"`
@@ -190,13 +190,13 @@ func (n *Nats) PublicMessage() {
 			Region  string `json:"region"`
 			Email   string `json:"email"`
 		}{
-			Name:    "your name is qedcqw",
-			Phone:   "123-456-7890784421e12e13",
-			Zip:     "1234542r34",
-			City:    "Citereqrdeqy",
-			Address: "123 Stree54223rt",
-			Region:  "Regiovvdsn",
-			Email:   "john.doe@f3d132r31example.com",
+			Name:    "name...",
+			Phone:   "phone",
+			Zip:     "zip",
+			City:    "city",
+			Address: "street 13a",
+			Region:  "Moscow",
+			Email:   "test@mail.ru",
 		},
 		// Заполнение структуры для Payment
 		Payment: struct {
@@ -211,21 +211,21 @@ func (n *Nats) PublicMessage() {
 			GoodsTotal   int    `json:"goods_total"`
 			CustomFee    int    `json:"custom_fee"`
 		}{
-			Transaction:  "ABCr3r31123",
-			RequestId:    "R3131EQ-001",
-			Currency:     "US1314133131D",
-			Provider:     "Pa53513431yPal",
-			Amount:       11110,
-			PaymentDt:    1613200,
-			Bank:         "XY343r3r3rZ Bank",
-			DeliveryCost: 130,
-			GoodsTotal:   9440,
-			CustomFee:    53,
+			Transaction:  "transaction",
+			RequestId:    "req_id",
+			Currency:     "currency",
+			Provider:     "nahabinoRU",
+			Amount:       32,
+			PaymentDt:    12,
+			Bank:         "eee bank",
+			DeliveryCost: 123,
+			GoodsTotal:   94446,
+			CustomFee:    535,
 		},
 	}
 
 	// Создание и заполнение слайса Items
-	items2 := []struct {
+	items3 := []struct {
 		ChrtId      int    `json:"chrt_id"`
 		TrackNumber string `json:"track_number"`
 		Price       int    `json:"price"`
@@ -239,37 +239,37 @@ func (n *Nats) PublicMessage() {
 		Status      int    `json:"status"`
 	}{
 		{
-			ChrtId:      999,
-			TrackNumber: "nuuuum",
-			Price:       10000,
-			Rid:         "riiiiiiiid",
-			Name:        "Nameeee",
-			Sale:        234,
-			Size:        "xxxxxl",
-			TotalPrice:  33333,
-			NmId:        00001,
-			Brand:       "Gucci",
-			Status:      345,
+			ChrtId:      334,
+			TrackNumber: "trcknum",
+			Price:       1055,
+			Rid:         "ridddd",
+			Name:        "nm",
+			Sale:        2312,
+			Size:        "0",
+			TotalPrice:  31,
+			NmId:        38,
+			Brand:       "brnd",
+			Status:      89,
 		},
 		{
-			ChrtId:      13145,
-			TrackNumber: "nuuuuuuuuuuuuum",
-			Price:       42112,
-			Rid:         "riiiiiiiiiiiiiid2",
-			Name:        "itmee2",
-			Sale:        3132,
-			Size:        "xxxxxxxxxxxxxs",
-			TotalPrice:  353,
-			NmId:        105555,
-			Brand:       "lv",
-			Status:      313,
+			ChrtId:      1318,
+			TrackNumber: "tracccknuuuuuuuuuuuuum",
+			Price:       421152,
+			Rid:         "ridddd2",
+			Name:        "itms2",
+			Sale:        313,
+			Size:        "000",
+			TotalPrice:  3548,
+			NmId:        10558,
+			Brand:       "unknown",
+			Status:      404,
 		},
 	}
 
-	model2.Items = items2
+	model3.Items = items3
 
-	data, err := json.Marshal(model2)
-	err = sc.Publish("nats-channel", data)
+	data, err := json.Marshal(model3)
+	err = sc.Publish("nats-channel", data) */
 	//n.CirclePublicMessage()
 
 	defer func() {

@@ -48,11 +48,17 @@ func (s *Sql) GetAllRecords() []models.Model {
 
 func (s *Sql) GetById(id int) (*models.Model, bool) {
 	var model models.Model
-	s.DB.Find(&model).Where("id = ?", id)
+	log.Println("sql id = ", id)
+	s.DB.First(&model, id)
+	if model.ID == 0 && id != 0 {
+		log.Println("value not found")
+	}
+	log.Println("model id = ", model.ID)
 	return &model, true
 }
 
 func (s *Sql) AddRecord(jsonModel json.ModelJson) {
+
 	delivery := models.Delivery{
 		Name:    jsonModel.Delivery.Name,
 		Phone:   jsonModel.Delivery.Phone,
@@ -110,5 +116,5 @@ func (s *Sql) AddRecord(jsonModel json.ModelJson) {
 		OofShard:          jsonModel.OofShard,
 	}
 
-	s.DB.FirstOrCreate(&newModel)
+	s.DB.Create(&newModel)
 }
