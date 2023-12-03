@@ -48,10 +48,10 @@ func (s *Sql) GetAllRecords() []models.Model {
 
 func (s *Sql) GetById(id int) (*models.Model, bool) {
 	var model models.Model
-	log.Println("sql id = ", id)
 	s.DB.First(&model, id)
 	if model.ID == 0 && id != 0 {
-		log.Println("value not found")
+		log.Println("значение не найдено")
+		return nil, false
 	}
 	log.Println("model id = ", model.ID)
 	return &model, true

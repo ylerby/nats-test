@@ -9,10 +9,7 @@ import (
 
 func (a *App) Get(w http.ResponseWriter, r *http.Request) {
 	formId := r.FormValue("id")
-	log.Println("form id = ", formId)
 	id, err := strconv.Atoi(formId)
-	log.Println("conv id = ", id)
-	log.Println("IDDDDD = ", id)
 	if err != nil {
 		log.Printf("ошибка при конвертации id записи %s", err)
 	}
