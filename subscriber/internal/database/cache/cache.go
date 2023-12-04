@@ -28,6 +28,10 @@ func (c *Client) CacheDownloading(modelSlice []models.Model) {
 	}
 }
 
+func (c *Client) GetAllRecords() map[int]models.Model {
+	return c.DB
+}
+
 func (c *Client) GetCacheSize() int {
 	return len(c.DB)
 }

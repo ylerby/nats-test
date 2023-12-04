@@ -12,7 +12,7 @@ type Sql struct {
 
 type InterfaceSql interface {
 	Connect() error
-	GetAllRecords() []models.Model
+	GetAllRecords() ([]models.Model, bool)
 	AddRecord(jsonModel json.ModelJson)
 	GetById(id int) (*models.Model, bool)
 }

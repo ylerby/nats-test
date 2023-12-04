@@ -16,7 +16,6 @@ func New() InterfaceSql {
 
 func (s *Sql) Connect() error {
 	var err error
-	//log.Println(os.Getenv("host"))
 	dsn := fmt.Sprintf("host=localhost user=postgres password=postgres dbname=NatsDB port=5433 sslmode=disable")
 
 	/*dsn := fmt.Sprintf("host=%s, user=%s, password=%s dbname=%s port=%s sslmode=disable",
@@ -39,11 +38,13 @@ func (s *Sql) Connect() error {
 	return nil
 }
 
-func (s *Sql) GetAllRecords() []models.Model {
+func (s *Sql) GetAllRecords() ([]models.Model, bool) {
 	var modelSlice []models.Model
 	s.DB.Preload("Delivery").Preload("Payment").Preload("Items").Find(&modelSlice)
-	log.Println(modelSlice)
-	return modelSlice
+	if modelSlice == nil {
+		return nil, true
+	}
+	return modelSlice, false
 }
 
 func (s *Sql) GetById(id int) (*models.Model, bool) {

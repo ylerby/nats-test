@@ -29,9 +29,6 @@ func New() *App {
 	}
 }
 
-//todo: 1) nats-streaming в docker-compose up
-//todo: 2) МОДЕЛИ БЛЯТЬ !!!!!!!!!!!!!!!!!!!!!
-
 func (a *App) Run() {
 	log.Println("запуск")
 	a.Cache.Connect()
@@ -65,11 +62,13 @@ func (a *App) Run() {
 		}
 	}()
 
-	res := a.Sql.GetAllRecords()
-	log.Println("получены значения")
-
-	log.Println(res)
-	a.Cache.CacheDownloading(res)
+	records, isEmpty := a.Sql.GetAllRecords()
+	if isEmpty {
+		log.Println("записей нет, бд пуста")
+	} else {
+		a.Cache.CacheDownloading(records)
+		log.Println("записи записаны в кеш")
+	}
 
 	http.HandleFunc("/", a.Get)
 
@@ -98,7 +97,6 @@ func (a *App) Sub(msg *stan.Msg) {
 		log.Fatalf("ошибка при десериализации %s", err)
 	}
 
-	//todo: добавить обработку ошибки при добавлении в кеш, sql-таблицу
 	a.Cache.AddRecord(model)
 	a.Sql.AddRecord(model)
 }

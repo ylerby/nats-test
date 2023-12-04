@@ -12,20 +12,22 @@ func (a *App) Get(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(formId)
 	if err != nil {
 		log.Printf("ошибка при конвертации id записи %s", err)
+		http.Redirect(w, r, "/", http.StatusBadRequest)
 	}
 
 	val, ok := a.Cache.GetById(id)
-	// todo: сделать получение значения из кеша, доработать кеш, добавить docker для nats-streaming
-	// todo:
 	if ok {
 		log.Println("попытка получения значения из кеша")
 		response, err := json.Marshal(*val)
 		if err != nil {
 			log.Println("ошибка при сериализации объекта")
+			http.Redirect(w, r, "/", http.StatusBadRequest)
 		}
-		_, err = w.Write([]byte(response))
+		log.Println("значение получено из кеша")
+		_, err = w.Write(response)
 		if err != nil {
 			log.Println("ошибка при ответе")
+			http.Redirect(w, r, "/", http.StatusBadRequest)
 		}
 	} else {
 		log.Println("попытка получения значения из sql")
@@ -34,14 +36,15 @@ func (a *App) Get(w http.ResponseWriter, r *http.Request) {
 			_, err = w.Write([]byte("Заказ с таким id не найден"))
 			if err != nil {
 				log.Println("ошибка при ответе")
-				// todo: сделать response с ошибкой
+				http.Redirect(w, r, "/", http.StatusBadRequest)
 			}
 		} else {
 			response, err := json.Marshal(*sqlVal)
 			if err != nil {
 				log.Println("ошибка при сериализации объекта")
+				http.Redirect(w, r, "/", http.StatusBadRequest)
 			}
-			_, err = w.Write([]byte(response))
+			_, err = w.Write(response)
 		}
 	}
 }
