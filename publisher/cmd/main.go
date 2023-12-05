@@ -1,8 +1,10 @@
 package main
 
-import "publisher"
+import (
+	"publisher/pub"
+)
 
 func main() {
-	pub := publisher.New("test-cluster", "client-2")
-	pub.PublicMessage()
+	publisher := pub.New("test-cluster", "client-2")
+	publisher.PublicMessage()
 }

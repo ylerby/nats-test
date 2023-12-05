@@ -76,7 +76,7 @@ func (a *App) Run() {
 
 	err = a.Server.ListenAndServe()
 	if err != nil {
-		log.Printf("ошибка при запуске сервера %s", err)
+		log.Fatalf("ошибка при запуске сервера %s", err)
 	}
 }
 
@@ -86,7 +86,7 @@ func (a *App) Stop() {
 	defer cancel()
 
 	if err := a.Server.Shutdown(ctx); err != nil {
-		log.Fatalf("ошибка при завершении работы сервера %s", err)
+		log.Println("завершение...")
 	}
 }
 
@@ -94,7 +94,8 @@ func (a *App) Sub(msg *stan.Msg) {
 	model := jsonModel.ModelJson{}
 	err := json.Unmarshal(msg.Data, &model)
 	if err != nil {
-		log.Fatalf("ошибка при десериализации %s", err)
+		log.Printf("ошибка при десериализации %s", err)
+		return
 	}
 
 	a.Cache.AddRecord(model)
