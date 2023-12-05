@@ -175,7 +175,7 @@ func (n *Nats) PublicMessage() {
 	data, err := json.Marshal(model)
 	err = sc.Publish("nats-channel", data)
 
-	/* model3 := ModelJson{
+	model3 := ModelJson{
 		OrderUid:    "1",
 		TrackNumber: "trck",
 		Entry:       "entry",
@@ -268,8 +268,8 @@ func (n *Nats) PublicMessage() {
 
 	model3.Items = items3
 
-	data, err := json.Marshal(model3)
-	err = sc.Publish("nats-channel", data) */
+	data, err = json.Marshal(model3)
+	err = sc.Publish("nats-channel", data)
 	//n.CirclePublicMessage()
 
 	defer func() {
