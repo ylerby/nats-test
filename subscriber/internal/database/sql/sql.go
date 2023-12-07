@@ -17,7 +17,6 @@ func New() InterfaceSql {
 func (s *Sql) Connect() error {
 	var err error
 
-	//todo : сделать получение конфигов из .env файла
 	dsn := fmt.Sprintf("host=localhost user=postgres password=postgres dbname=NatsDB port=5433 sslmode=disable")
 
 	s.DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
